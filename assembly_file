@@ -1,6 +1,4 @@
-
 a.out:     file format elf64-x86-64
-
 
 Disassembly of section .init:
 
@@ -178,4 +176,16 @@ Disassembly of section .fini:
 0000000000400604 <_fini>:
   400604:	48 83 ec 08          	sub    $0x8,%rsp
   400608:	48 83 c4 08          	add    $0x8,%rsp
-  40060c:	c3                   	retq  
+  40060c:	c3                   	retq   
+
+Disassembly of section .data:
+
+0000000000601020 <__data_start>:
+	...
+
+0000000000601028 <__dso_handle>:
+	...
+  601030:	6e                   	outsb  %ds:(%rsi),(%dx)
+  601031:	75 6c                	jne    60109f <_end+0x57>
+  601033:	6c                   	insb   (%dx),%es:(%rdi)
+	...
