@@ -48,15 +48,15 @@ Disassembly of section .text:
 
 00000000004004a0 <deregister_tm_clones>:
   4004a0:	55                   	push   %rbp
-  4004a1:	b8 38 10 60 00       	mov    $0x601038,%eax
-  4004a6:	48 3d 38 10 60 00    	cmp    $0x601038,%rax
+  4004a1:	b8 30 10 60 00       	mov    $0x601030,%eax
+  4004a6:	48 3d 30 10 60 00    	cmp    $0x601030,%rax
   4004ac:	48 89 e5             	mov    %rsp,%rbp
   4004af:	74 17                	je     4004c8 <deregister_tm_clones+0x28>
   4004b1:	b8 00 00 00 00       	mov    $0x0,%eax
   4004b6:	48 85 c0             	test   %rax,%rax
   4004b9:	74 0d                	je     4004c8 <deregister_tm_clones+0x28>
   4004bb:	5d                   	pop    %rbp
-  4004bc:	bf 38 10 60 00       	mov    $0x601038,%edi
+  4004bc:	bf 30 10 60 00       	mov    $0x601030,%edi
   4004c1:	ff e0                	jmpq   *%rax
   4004c3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
   4004c8:	5d                   	pop    %rbp
@@ -64,9 +64,9 @@ Disassembly of section .text:
   4004ca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
 
 00000000004004d0 <register_tm_clones>:
-  4004d0:	be 38 10 60 00       	mov    $0x601038,%esi
+  4004d0:	be 30 10 60 00       	mov    $0x601030,%esi
   4004d5:	55                   	push   %rbp
-  4004d6:	48 81 ee 38 10 60 00 	sub    $0x601038,%rsi
+  4004d6:	48 81 ee 30 10 60 00 	sub    $0x601030,%rsi
   4004dd:	48 89 e5             	mov    %rsp,%rbp
   4004e0:	48 c1 fe 03          	sar    $0x3,%rsi
   4004e4:	48 89 f0             	mov    %rsi,%rax
@@ -78,7 +78,7 @@ Disassembly of section .text:
   4004f8:	48 85 c0             	test   %rax,%rax
   4004fb:	74 0b                	je     400508 <register_tm_clones+0x38>
   4004fd:	5d                   	pop    %rbp
-  4004fe:	bf 38 10 60 00       	mov    $0x601038,%edi
+  4004fe:	bf 30 10 60 00       	mov    $0x601030,%edi
   400503:	ff e0                	jmpq   *%rax
   400505:	0f 1f 00             	nopl   (%rax)
   400508:	5d                   	pop    %rbp
@@ -86,12 +86,12 @@ Disassembly of section .text:
   40050a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
 
 0000000000400510 <__do_global_dtors_aux>:
-  400510:	80 3d 21 0b 20 00 00 	cmpb   $0x0,0x200b21(%rip)        # 601038 <__TMC_END__>
+  400510:	80 3d 19 0b 20 00 00 	cmpb   $0x0,0x200b19(%rip)        # 601030 <__TMC_END__>
   400517:	75 17                	jne    400530 <__do_global_dtors_aux+0x20>
   400519:	55                   	push   %rbp
   40051a:	48 89 e5             	mov    %rsp,%rbp
   40051d:	e8 7e ff ff ff       	callq  4004a0 <deregister_tm_clones>
-  400522:	c6 05 0f 0b 20 00 01 	movb   $0x1,0x200b0f(%rip)        # 601038 <__TMC_END__>
+  400522:	c6 05 07 0b 20 00 01 	movb   $0x1,0x200b07(%rip)        # 601030 <__TMC_END__>
   400529:	5d                   	pop    %rbp
   40052a:	c3                   	retq   
   40052b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
@@ -109,14 +109,14 @@ Disassembly of section .text:
   40054e:	00 00 
 
 0000000000400550 <foo>:
-  400550:	48 b8 30 10 60 00 00 	movabs $0x601030,%rax
-  400557:	00 00 00 
-  40055a:	48 89 44 24 f0       	mov    %rax,-0x10(%rsp)
-  40055f:	48 8b 44 24 f0       	mov    -0x10(%rsp),%rax
-  400564:	48 89 44 24 f8       	mov    %rax,-0x8(%rsp)
-  400569:	48 8b 44 24 f8       	mov    -0x8(%rsp),%rax
-  40056e:	c3                   	retq   
-  40056f:	90                   	nop
+  400550:	48 8b 04 25 40 10 60 	mov    0x601040,%rax
+  400557:	00 
+  400558:	48 89 44 24 f8       	mov    %rax,-0x8(%rsp)
+  40055d:	48 8b 44 24 f8       	mov    -0x8(%rsp),%rax
+  400562:	c3                   	retq   
+  400563:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+  40056a:	00 00 00 
+  40056d:	0f 1f 00             	nopl   (%rax)
 
 0000000000400570 <main>:
   400570:	48 83 ec 18          	sub    $0x18,%rsp
@@ -185,7 +185,20 @@ Disassembly of section .data:
 
 0000000000601028 <__dso_handle>:
 	...
-  601030:	6e                   	outsb  %ds:(%rsi),(%dx)
-  601031:	75 6c                	jne    60109f <_end+0x57>
-  601033:	6c                   	insb   (%dx),%es:(%rdi)
+
+Disassembly of section .bss:
+
+0000000000601030 <__bss_start>:
 	...
+
+0000000000601038 <$annotation_data>:
+  601038:	00 00                	add    %al,(%rax)
+	...
+
+000000000060103c <$annotation_data.1>:
+  60103c:	00 00                	add    %al,(%rax)
+	...
+
+0000000000601040 <bal_nil_value>:
+	...
+
