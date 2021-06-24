@@ -1,0 +1,44 @@
+0000000000401130 <foo>:
+  401130:	55                   	push   %rbp
+  401131:	48 89 e5             	mov    %rsp,%rbp
+  401134:	48 83 ec 10          	sub    $0x10,%rsp
+  401138:	c7 45 fc 02 00 00 00 	movl   $0x2,-0x4(%rbp)
+  
+  // print the location of local var
+  // start
+  40113f:	48 bf 04 20 40 00 00 	movabs $0x402004,%rdi
+  401146:	00 00 00 
+  401149:	48 8d 75 fc          	lea    -0x4(%rbp),%rsi // 2nd argument is (rbp - 4), which is less than the base pointer of stack frame
+  40114d:	b0 00                	mov    $0x0,%al
+  40114f:	e8 dc fe ff ff       	callq  401030 <printf@plt>
+  // end
+  
+  // print the output of llvm.frameaddress()
+  // start
+  401154:	48 89 e9             	mov    %rbp,%rcx // move base pointer to rax register
+  401157:	48 bf 04 20 40 00 00 	movabs $0x402004,%rdi
+  40115e:	00 00 00 
+  401161:	48 89 ce             	mov    %rcx,%rsi // 2nd arg is rbp, which is the base pointer of stack frame
+  401164:	89 45 f8             	mov    %eax,-0x8(%rbp)
+  401167:	b0 00                	mov    $0x0,%al
+  401169:	e8 c2 fe ff ff       	callq  401030 <printf@plt> 
+  // end
+  
+  40116e:	48 83 c4 10          	add    $0x10,%rsp
+  401172:	5d                   	pop    %rbp
+  401173:	c3                   	retq   
+  401174:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+  40117b:	00 00 00 
+  40117e:	66 90                	xchg   %ax,%ax
+
+0000000000401180 <main>:
+  401180:	55                   	push   %rbp
+  401181:	48 89 e5             	mov    %rsp,%rbp
+  401184:	48 83 ec 10          	sub    $0x10,%rsp
+  401188:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  40118f:	e8 9c ff ff ff       	callq  401130 <foo>
+  401194:	31 c0                	xor    %eax,%eax
+  401196:	48 83 c4 10          	add    $0x10,%rsp
+  40119a:	5d                   	pop    %rbp
+  40119b:	c3                   	retq   
+  40119c:	0f 1f 40 00          	nopl   0x0(%rax)
