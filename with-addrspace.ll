@@ -4,6 +4,7 @@ target triple ="x86_64-pc-linux-gnu"
 declare void @_bal_panic (i64)
 declare i8 addrspace(1)* @_bal_alloc (i64)
 declare i8 addrspace(1)* @llvm.ptrmask.p0i8.i64 (i8 addrspace(1)*, i64) readnone speculatable
+declare void @_Bio__println (i8*)
 define void @_B_main () {
   %v = alloca i8 addrspace(1)* 
   %_0 = alloca i64
@@ -20,8 +21,8 @@ L1:
   %_7 = getelementptr i8, i8 addrspace(1)* %_5, i64 144115188075855872
   store i8 addrspace(1)* %_7, i8 addrspace(1)** %v
   %_8 = load i8 addrspace(1)*, i8 addrspace(1)** %v
-  %"addrcast_8" = addrspacecast i8 addrspace(1)* %_8 to i8* 
-  %_9 = ptrtoint i8* %"addrcast_8" to i64
+  %_8_addrspacecast = addrspacecast i8 addrspace(1)* %_8 to i8* 
+  %_9 = ptrtoint i8* %_8_addrspacecast to i64
   %_10 = and i64 %_9, 9151314442816847872
   %_11 = icmp eq i64 %_10, 144115188075855872
   br i1 %_11, label %L4, label %L5
@@ -34,12 +35,12 @@ L3:
   unreachable
 L4:
   %_12 = call i8 addrspace(1)* @llvm.ptrmask.p0i8.i64 (i8 addrspace(1)* %_8, i64 72057594037927935)
-  %"addrcast_12" = addrspacecast i8 addrspace(1)* %_12 to i8* 
-  %_13 = bitcast i8* %"addrcast_12" to i64*
+  %_12_addrspacecast = addrspacecast i8 addrspace(1)* %_12 to i8*
+  %_13 = bitcast i8* %_12_addrspacecast to i64*
   %_14 = load i64, i64* %_13, align 8
   store i64 %_14, i64* %_0
   %_15 = load i64, i64* %_0
-  store i64 %_15, i64* %n
+  store i64 %_15, i64* %n  
   ret void
 L5:
   store i64 1283, i64* %_1
