@@ -1,6 +1,3 @@
-; ModuleID = '/home/kavindu/GIT/nballerina/compiler/testSuite/Vlist04.ll'
-source_filename = "/home/kavindu/GIT/nballerina/compiler/testSuite/Vlist04.ll"
-
 @_bal_stack_guard = external global i8*
 
 ; Function Attrs: cold noreturn
